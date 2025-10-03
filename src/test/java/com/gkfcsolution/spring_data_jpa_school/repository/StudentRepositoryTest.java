@@ -98,4 +98,14 @@ class StudentRepositoryTest {
         Student student = studentRepository.getStudentByEmailAddressNativeNamedParam("frank@gmail.com");
         System.out.println("Native Named PAram student = " + student);
     }
+    @Test
+    public void updateStudentNameByEmailIdTest() {
+        studentRepository.updateStudentNaneByEmail("Frank Cabrel", "frank@gmail.com");
+//        System.out.println("Native student = " + student);
+    }
+    @Test
+    public void updateStudentNameByEmailIdTestNamedParam() {
+        studentRepository.updateStudentNaneByEmailNamedParam("FranK GUEKENG","frankguekeng@gmail.com");
+//        System.out.println("Native Named PAram student = " + student);
+    }
 }

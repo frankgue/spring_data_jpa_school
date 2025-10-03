@@ -1,7 +1,9 @@
 package com.gkfcsolution.spring_data_jpa_school.repository;
 
 import com.gkfcsolution.spring_data_jpa_school.entity.Student;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -41,4 +43,21 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     //NATIVE Named Param
     @Query(value = "SELECT * FROM tbl_student s where s.email_Address = :emailId", nativeQuery = true)
     Student getStudentByEmailAddressNativeNamedParam(@Param("emailId") String emailId);
+    @Modifying
+    @Transactional
+    @Query(
+            value = "update tbl_student set first_name = ?1 where email_address = ?2",
+            nativeQuery = true
+    )
+    int updateStudentNaneByEmail(String firstName, String emailId);
+
+    @Modifying
+    @Transactional
+    @Query(
+            value = "update tbl_student set first_name = :firstName where email_address = :emailId",
+            nativeQuery = true
+    )
+    int updateStudentNaneByEmailNamedParam(@Param("firstName") String firstName, @Param("emailId") String emailId);
+
+
 }
