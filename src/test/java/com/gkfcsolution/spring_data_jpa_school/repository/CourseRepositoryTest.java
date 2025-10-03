@@ -1,8 +1,6 @@
 package com.gkfcsolution.spring_data_jpa_school.repository;
 
-import com.gkfcsolution.spring_data_jpa_school.entity.Course;
-import com.gkfcsolution.spring_data_jpa_school.entity.CourseMaterial;
-import com.gkfcsolution.spring_data_jpa_school.entity.Teacher;
+import com.gkfcsolution.spring_data_jpa_school.entity.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -98,5 +96,34 @@ class CourseRepositoryTest {
 
         List<Course> courses = courseRepository.findByTitleContaining("D", firstPageTenRecords).getContent();   ;
         System.out.println("courses = " + courses);
+    }
+
+    @Test
+    public void saveCourseWithStudentAndTeacherTest(){
+        Teacher teacher = Teacher.builder()
+                .firstName("Ludovic")
+                .lastName("JONGO")
+                .build();
+
+        Student student = Student.builder()
+                .firstName("Larissa")
+                .lastName("GUE")
+                .emailId("larissa@gmail.com")
+                .guardian(Guardian.builder()
+                        .mobile("+237670171050")
+                        .email("guimfack@gmail.com")
+                        .name("Nguimfack Jeannette")
+                        .build())
+                .build();
+
+        Course course = Course.builder()
+                .title("AI")
+                .credit(7)
+                .teacher(teacher)
+                .build();
+
+        course.addStudents(student);
+
+        courseRepository.save(course);
     }
 }
